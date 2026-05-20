@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,24 +21,24 @@ import static jakarta.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Post extends BaseEntity {
 
-    private String title;
-    private String content;
+    private String subject;
+    private String body;
 
     @OneToMany(mappedBy = "post", fetch = LAZY, cascade = {PERSIST, REMOVE}, orphanRemoval = true)
     private List<PostComment> comments = new ArrayList<>();
 
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public Post(String subject, String body) {
+        this.subject = subject;
+        this.body = body;
     }
 
-    public void modify(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public void modify(String subject, String body) {
+        this.subject = subject;
+        this.body = body;
     }
 
-    public PostComment addComment(String content) {
-        PostComment postComment = new PostComment(this, content);
+    public PostComment addComment(String body) {
+        PostComment postComment = new PostComment(this, body);
         comments.add(postComment);
 
         return postComment;

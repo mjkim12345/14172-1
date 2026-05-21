@@ -7,24 +7,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
 @NoArgsConstructor
 public class PostComment extends BaseEntity {
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = LAZY)
     private Post post;
-    private String body;
+    private String content;
 
-    public PostComment(Post post, String body) {
+    public PostComment(Post post, String content) {
         this.post = post;
-        this.body = body;
+        this.content = content;
     }
 
-    public void modify(String body) {
-        this.body = body;
+    public void modify(String content) {
+        this.content = content;
     }
 
 }

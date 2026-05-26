@@ -48,7 +48,7 @@ public class ApiV1PostController {
         postService.delete(post);
 
         return new RsData<>("200-1",
-                "%d번이 삭제되었습니다.".formatted(id)
+                "%d번 글이 삭제되었습니다.".formatted(id)
         );
     }
 
@@ -62,27 +62,17 @@ public class ApiV1PostController {
     ) {
     }
 
-    public record PostWriteResBody(
-            long totalCount,
-            PostDto dto
-    ) {
-    }
-
     @PostMapping
     @Transactional
-    public RsData<PostWriteResBody> write(
+    public RsData<PostDto> write(
             @RequestBody @Valid PostWriteReqBody form
     ) {
         Post post = postService.write(form.title, form.content);
-        long totalCount = postService.count();
 
         return new RsData<>(
                         "201-1",
-                        "%d번 글이 생성되었습니다.".formatted(post.getId()),
-                        new PostWriteResBody(
-                                totalCount,
-                                new PostDto(post)
-                        )
+                        "%d번 글이 작성되었습니다.".formatted(post.getId()),
+                        new PostDto(post)
         );
     }
 

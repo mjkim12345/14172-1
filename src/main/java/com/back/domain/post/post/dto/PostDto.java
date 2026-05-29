@@ -1,5 +1,6 @@
 package com.back.domain.post.post.dto;
 
+import com.back.domain.member.member.entity.Member;
 import com.back.domain.post.post.entity.Post;
 import lombok.Getter;
 
@@ -11,7 +12,8 @@ public record PostDto (
         LocalDateTime createDate,
         LocalDateTime modifyDate,
         String title,
-        String content
+        String content,
+        Member author
 ) {
     public PostDto(Post post) {
             this(
@@ -19,7 +21,8 @@ public record PostDto (
                     post.getCreateDate(),
                     post.getModifyDate(),
                     post.getTitle(),
-                    post.getContent()
+                    post.getContent(),
+                    post.getAuthor()
             );
     }
 }
